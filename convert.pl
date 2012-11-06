@@ -14,4 +14,4 @@ my $conv = Convertor->new(
 );
 $conv->xml2sqlite();
 
-print "\n" . tv_interval( $t0 ) . " sec\n";
+print tv_interval( $t0 ) . " sec\n";

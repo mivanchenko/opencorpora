@@ -6,37 +6,6 @@
     <tag>Тип:Газета</tag>
   </tags>
   <paragraphs>
-    <paragraph id="22">
-      <sentence id="44">
-        <source>То есть речь идет отнюдь не о мастер-классе злоязычия, но напротив, если говорить совсем прямо, о том, что если кто злословит понапрасну да еще клевещет, непременно вынужден будет сам прикусить язык.</source>
-        <tokens>
-          <token id="1004" text="если"><tfr t="если"><v><l id="95365" t="если"><g v="CONJ"/></l></v></tfr></token>
-          <token id="1005" text="говорить"><tfr t="говорить"><v><l id="72054" t="говорить"><g v="INFN"/><g v="impf"/><g v="tran"/></l></v></tfr></token>
-          <token id="1006" text="совсем"><tfr t="совсем"><v><l id="328223" t="совсем"><g v="ADVB"/></l></v></tfr></token>
-          <token id="1007" text="прямо"><tfr t="прямо"><v><l id="288257" t="прямо"><g v="ADVB"/></l></v><v><l id="288258" t="прямо"><g v="PRCL"/></l></v><v><l id="288272" t="прям"><g v="ADJS"/><g v="Qual"/><g v="neut"/><g v="sing"/></l></v></tfr></token>
-          <token id="1008" text=","><tfr t=","><v><l id="0" t=","><g v="PNCT"/></l></v></tfr></token>
-          <token id="1009" text="о"><tfr t="о"><v><l id="192977" t="о"><g v="PREP"/></l></v><v><l id="192978" t="о"><g v="INTJ"/></l></v></tfr></token>
-          <token id="1010" text="том"><tfr t="том"><v><l id="347410" t="том"><g v="NOUN"/><g v="anim"/><g v="masc"/><g v="Name"/><g v="sing"/><g v="nomn"/></l></v><v><l id="347413" t="том"><g v="NOUN"/><g v="inan"/><g v="masc"/><g v="sing"/><g v="nomn"/></l></v><v><l id="347413" t="том"><g v="NOUN"/><g v="inan"/><g v="masc"/><g v="sing"/><g v="accs"/></l></v><v><l id="347414" t="тома"><g v="NOUN"/><g v="anim"/><g v="femn"/><g v="Name"/><g v="plur"/><g v="gent"/></l></v><v><l id="347414" t="тома"><g v="NOUN"/><g v="anim"/><g v="femn"/><g v="Name"/><g v="plur"/><g v="accs"/></l></v><v><l id="348430" t="тот"><g v="ADJF"/><g v="Apro"/><g v="masc"/><g v="sing"/><g v="loct"/></l></v><v><l id="348430" t="тот"><g v="ADJF"/><g v="Apro"/><g v="neut"/><g v="sing"/><g v="loct"/></l></v></tfr></token>
-          <token id="1011" text=","><tfr t=","><v><l id="0" t=","><g v="PNCT"/></l></v></tfr></token>
-          <token id="1012" text="что"><tfr t="что"><v><l id="377004" t="что"><g v="CONJ"/></l></v><v><l id="377005" t="что"><g v="NPRO"/><g v="neut"/><g v="sing"/><g v="nomn"/></l></v><v><l id="377005" t="что"><g v="NPRO"/><g v="neut"/><g v="sing"/><g v="accs"/></l></v><v><l id="377006" t="что"><g v="ADVB"/><g v="Ques"/></l></v></tfr></token>
-          <token id="1013" text="если"><tfr t="если"><v><l id="95365" t="если"><g v="CONJ"/></l></v></tfr></token>
-          <token id="1014" text="кто"><tfr t="кто"><v><l id="144216" t="кто"><g v="NPRO"/><g v="masc"/><g v="sing"/><g v="nomn"/></l></v></tfr></token>
-          <token id="1015" text="злословит"><tfr t="злословит"><v><l id="115767" t="злословлю"><g v="VERB"/><g v="impf"/><g v="intr"/><g v="sing"/><g v="3per"/><g v="pres"/><g v="indc"/></l></v></tfr></token>
-          <token id="1016" text="понапрасну"><tfr t="понапрасну"><v><l id="258308" t="понапрасну"><g v="ADVB"/></l></v></tfr></token>
-          <token id="1017" text="да"><tfr t="да"><v><l id="77569" t="да"><g v="CONJ"/></l></v><v><l id="77570" t="да"><g v="PRCL"/></l></v><v><l id="77571" t="да"><g v="INTJ"/></l></v></tfr></token>
-          <token id="1018" text="еще"><tfr t="еще"><v><l id="95551" t="ещё"><g v="PRCL"/></l></v><v><l id="95552" t="ещё"><g v="ADVB"/></l></v></tfr></token>
-          <token id="1019" text="клевещет"><tfr t="клевещет"><v><l id="134029" t="клевещу"><g v="VERB"/><g v="impf"/><g v="intr"/><g v="sing"/><g v="3per"/><g v="pres"/><g v="indc"/></l></v></tfr></token>
-          <token id="1020" text=","><tfr t=","><v><l id="0" t=","><g v="PNCT"/></l></v></tfr></token>
-          <token id="1021" text="непременно"><tfr t="непременно"><v><l id="186478" t="непременно"><g v="ADVB"/></l></v><v><l id="186481" t="непременен"><g v="ADJS"/><g v="neut"/><g v="sing"/></l></v></tfr></token>
-          <token id="1022" text="вынужден"><tfr t="вынужден"><v><l id="59954" t="вынужден"><g v="PRTS"/><g v="perf"/><g v="past"/><g v="pssv"/><g v="masc"/><g v="sing"/></l></v><v><l id="59971" t="вынужден"><g v="ADJS"/><g v="Qual"/><g v="masc"/><g v="sing"/></l></v></tfr></token>
-          <token id="1023" text="будет"><tfr t="будет"><v><l id="37265" t="есть"><g v="VERB"/><g v="impf"/><g v="intr"/><g v="sing"/><g v="3per"/><g v="futr"/><g v="indc"/></l></v></tfr></token>
-          <token id="1024" text="сам"><tfr t="сам"><v><l id="312034" t="сам"><g v="ADJF"/><g v="Apro"/><g v="masc"/><g v="sing"/><g v="nomn"/></l></v><v><l id="312034" t="сам"><g v="ADJF"/><g v="Apro"/><g v="inan"/><g v="masc"/><g v="sing"/><g v="accs"/></l></v></tfr></token>
-          <token id="1025" text="прикусить"><tfr t="прикусить"><v><l id="271426" t="прикусить"><g v="INFN"/><g v="perf"/><g v="tran"/></l></v></tfr></token>
-          <token id="1026" text="язык"><tfr t="язык"><v><l id="387572" t="язык"><g v="NOUN"/><g v="anim"/><g v="masc"/><g v="sing"/><g v="nomn"/></l></v><v><l id="387573" t="язык"><g v="NOUN"/><g v="inan"/><g v="masc"/><g v="sing"/><g v="nomn"/></l></v><v><l id="387573" t="язык"><g v="NOUN"/><g v="inan"/><g v="masc"/><g v="sing"/><g v="accs"/></l></v></tfr></token>
-          <token id="1027" text="."><tfr t="."><v><l id="0" t="."><g v="PNCT"/></l></v></tfr></token>
-        </tokens>
-      </sentence>
-    </paragraph>
   </paragraphs>
 </text>
 <text id="2" parent="1" name="00021 Школа злословия">
