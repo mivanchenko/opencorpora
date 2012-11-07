@@ -158,6 +158,10 @@ Returns C<$self> to allow chaining: C<< $self->sentences->next >>.
 
 Returns next L<XML::TreePuller::Element|http://search.cpan.org/~triddle/XML-TreePuller-0.1.2/lib/XML/TreePuller.pm#XML::TreePuller::Element>.
 
+=head1 PERFORMANCE
+
+Read L<performance section|http://search.cpan.org/~triddle/XML-TreePuller-0.1.2/lib/XML/TreePuller.pm#IMPROVING_PERFORMANCE> of the L<underlying|http://search.cpan.org/~triddle/XML-TreePuller-0.1.2/lib/XML/TreePuller.pm> package.
+
 =head1 AUTHOR
 
 L<OpenCorpora.org|http://opencorpora.org> team.
