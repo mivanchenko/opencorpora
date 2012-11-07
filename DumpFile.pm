@@ -10,7 +10,9 @@ $| = 1;  # I/O buffer off
 binmode( STDOUT, ':encoding(utf8)' );
 
 our %XPATHS = (
-	'text' => '/annotation/text',
+	'text'      => '/annotation/text',
+	'paragraph' => '/annotation/text/paragraphs/paragraph',
+	'sentence'  => '/annotation/text/paragraphs/paragraph/sentence',
 );
 
 
@@ -25,32 +27,58 @@ my @iterant_xpath :Default( $DumpFile::XPATHS{'text'} )
 my @mode :Default( 'subtree' )  # 'short' | 'subtree'
          :Field :Acc( mode );
 
-my @puller :Field :Acc( puller );
+my @iterator :Field :Acc( iterator );
 
 sub init :Init {
 	my ($self, $args) = @_;
 
-	my $puller = XML::TreePuller->new( location => $self->file_name );
-
-	$puller->iterate_at( $self->iterant_xpath, $self->mode );
-
-	$self->puller( $puller );
+	my $iterator = XML::TreePuller->new( location => $self->file_name );
+	$iterator->iterate_at( $self->iterant_xpath, $self->mode );
+	$self->iterator( $iterator );
 }
 
 
 sub texts {
 	my ($self) = @_;
+	$self->_set_iterator( 'text' );
+	return $self;
+}
 
-	if ( $self->iterant_xpath ne $XPATHS{'text'} ) {
-		$self->puller->iterate_at( $XPATHS{'text'}, $self->mode );
+sub paragraphs {
+	my ($self) = @_;
+	$self->_set_iterator( 'paragraph' );
+	return $self;
+}
+
+sub sentences {
+	my ($self) = @_;
+	$self->_set_iterator( 'sentence' );
+	return $self;
+}
+
+sub _set_iterator {
+	my ($self, $iterant) = @_;
+
+	if ( $self->iterant_xpath ne $XPATHS{ $iterant } ) {
+		# create iterator from current iterant
+		my $iterator = XML::TreePuller->new( location => $self->file_name );
+		$iterator->iterate_at( $XPATHS{ $iterant }, $self->mode );
+
+		# set iterator
+		$self->iterator( $iterator );
+
+		# save current iterant
+		$self->iterant_xpath( $XPATHS{ $iterant } );
+
+		return 1;
 	}
 
-	return $self;
+	return;
 }
 
 sub next {
 	my ($self) = @_;
-	return $self->puller->next;
+	return $self->iterator->next;
 }
 
 1;
@@ -59,7 +87,7 @@ __END__
 
 =head1 NAME
 
-DumpFile - Iterator of OpenCorpora's L<XML dump file|http://opencorpora.org/?page=downloads>.
+DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|http://opencorpora.org/?page=downloads>.
 
 =head1 SYNOPSIS
 
@@ -70,15 +98,61 @@ DumpFile - Iterator of OpenCorpora's L<XML dump file|http://opencorpora.org/?pag
  while ( defined( my $text = $dump_file->texts->next ) ) {
  	print 'Id: ',   $text->attribute( 'id' ), "\n";
  	print 'Name: ', $text->name, "\n";
- 	print 'Text: ', $text->text, "\n";
- 	print "\n";
+ 	print 'Text: ', $text->text, "\n", "\n";
+ }
+
+ while ( defined( my $paragraph = $dump_file->paragraphs->next ) ) {
+ 	print 'Id: ',   $paragraph->attribute( 'id' ), "\n";
+ 	print 'Name: ', $paragraph->name, "\n";
+ 	print 'Text: ', $paragraph->text, "\n", "\n";
+ }
+
+ while ( defined( my $sentence = $dump_file->sentences->next ) ) {
+ 	print 'Id: ',   $sentence->attribute( 'id' ), "\n";
+ 	print 'Name: ', $sentence->name, "\n";
+ 	print 'Text: ', $sentence->text, "\n", "\n";
+ }
+
+ ###
+
+ while ( defined( my $text = $dump_file->texts->next ) ) {
+ 	print 'Id: ',   $text->attribute( 'id' ), "\n";
+ 	print 'Name: ', $text->name, "\n";
+ 	print 'Text: ', $text->text, "\n", "\n";
+
+ 	my @paragraphs = $text->get_elements( 'paragraphs/paragraph' );
+
+ 	foreach my $paragraph ( @paragraphs ) {
+ 		print 'Id: ',   $paragraph->attribute( 'id' ), "\n";
+ 		print 'Name: ', $paragraph->name, "\n";
+ 		print 'Text: ', $paragraph->text, "\n", "\n";
+
+ 		my @sentences = $paragraph->get_elements( 'sentence' );
+
+ 		foreach my $sentence ( @sentences ) {
+ 			print 'Id: ',   $sentence->attribute( 'id' ), "\n";
+ 			print 'Name: ', $sentence->name, "\n";
+ 			print 'Text: ', $sentence->text, "\n", "\n";
+ 		}
+ 	}
  }
 
 =head1 METHODS
 
 =head2 texts
 
-Sets iterator to <text> elements. Returns C<$self> to allow chaining: C<< $self->texts->next >>.
+Sets iterator to <text> elements.
+Returns C<$self> to allow chaining: C<< $self->texts->next >>.
+
+=head2 paragraphs
+
+Sets iterator to <paragraph> elements.
+Returns C<$self> to allow chaining: C<< $self->paragraphs->next >>.
+
+=head2 sentences
+
+Sets iterator to <sentence> elements.
+Returns C<$self> to allow chaining: C<< $self->sentences->next >>.
 
 =head2 next
 
