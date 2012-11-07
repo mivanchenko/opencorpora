@@ -6,6 +6,11 @@
     <tag>Тип:Газета</tag>
   </tags>
   <paragraphs>
+    <paragraph id="1">
+      <sentence id="1">
+	  	Sentence.
+      </sentence>
+    </paragraph>
   </paragraphs>
 </text>
 <text id="2" parent="1" name="00021 Школа злословия">
