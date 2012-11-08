@@ -78,7 +78,14 @@ sub _set_iterator {
 
 sub next {
 	my ($self) = @_;
-	return $self->iterator->next;
+	my $next = $self->iterator->next;
+
+	# add a method 'id' to 'next element'
+	*XML::TreePuller::Element::id = sub {
+		return $next->attribute( 'id' );
+	};
+
+	return $next;
 }
 
 1;
@@ -97,18 +104,21 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
 
  while ( defined( my $text = $dump_file->texts->next ) ) {
  	print 'Id: ',   $text->attribute( 'id' ), "\n";
+ 	print 'Id: ',   $text->id, "\n";
  	print 'Name: ', $text->name, "\n";
  	print 'Text: ', $text->text, "\n", "\n";
  }
 
  while ( defined( my $paragraph = $dump_file->paragraphs->next ) ) {
  	print 'Id: ',   $paragraph->attribute( 'id' ), "\n";
+ 	print 'Id: ',   $paragraph->id, "\n";
  	print 'Name: ', $paragraph->name, "\n";
  	print 'Text: ', $paragraph->text, "\n", "\n";
  }
 
  while ( defined( my $sentence = $dump_file->sentences->next ) ) {
  	print 'Id: ',   $sentence->attribute( 'id' ), "\n";
+ 	print 'Id: ',   $sentence->id, "\n";
  	print 'Name: ', $sentence->name, "\n";
  	print 'Text: ', $sentence->text, "\n", "\n";
  }
@@ -117,6 +127,7 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
 
  while ( defined( my $text = $dump_file->texts->next ) ) {
  	print 'Id: ',   $text->attribute( 'id' ), "\n";
+ 	print 'Id: ',   $text->id, "\n";
  	print 'Name: ', $text->name, "\n";
  	print 'Text: ', $text->text, "\n", "\n";
 
@@ -124,6 +135,7 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
 
  	foreach my $paragraph ( @paragraphs ) {
  		print 'Id: ',   $paragraph->attribute( 'id' ), "\n";
+ 		print 'Id: ',   $paragraph->id, "\n";
  		print 'Name: ', $paragraph->name, "\n";
  		print 'Text: ', $paragraph->text, "\n", "\n";
 
@@ -131,6 +143,7 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
 
  		foreach my $sentence ( @sentences ) {
  			print 'Id: ',   $sentence->attribute( 'id' ), "\n";
+ 			print 'Id: ',   $sentence->id, "\n";
  			print 'Name: ', $sentence->name, "\n";
  			print 'Text: ', $sentence->text, "\n", "\n";
  		}
@@ -156,7 +169,8 @@ Returns C<$self> to allow chaining: C<< $self->sentences->next >>.
 
 =head2 next
 
-Returns next L<XML::TreePuller::Element|http://search.cpan.org/~triddle/XML-TreePuller-0.1.2/lib/XML/TreePuller.pm#XML::TreePuller::Element>.
+Returns next L<XML::TreePuller::Element|http://search.cpan.org/~triddle/XML-TreePuller-0.1.2/lib/XML/TreePuller.pm#XML::TreePuller::Element> with added convenience method 'id', so you can get 'id' attribute with:
+C<< $paragraph->id >> instead of C<< $paragraph->attribute('id') >>.
 
 =head1 PERFORMANCE
 
