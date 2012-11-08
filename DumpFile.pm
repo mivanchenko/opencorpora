@@ -170,7 +170,7 @@ Returns C<$self> to allow chaining: C<< $self->sentences->next >>.
 =head2 next
 
 Returns next L<XML::TreePuller::Element|http://search.cpan.org/~triddle/XML-TreePuller-0.1.2/lib/XML/TreePuller.pm#XML::TreePuller::Element> with added convenience method 'id', so you can get 'id' attribute with:
-C<< $paragraph->id >> instead of C<< $paragraph->attribute('id') >>.
+C<< $next_element->id >> instead of C<< $next_element->attribute('id') >>.
 
 =head1 PERFORMANCE
 
