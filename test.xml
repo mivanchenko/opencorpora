@@ -8,7 +8,10 @@
   <paragraphs>
     <paragraph id="1">
       <sentence id="1">
-	  	Sentence.
+	  	Sentence 1.
+      </sentence>
+      <sentence id="2">
+	  	Sentence 2.
       </sentence>
     </paragraph>
   </paragraphs>
@@ -25,6 +28,7 @@
   <paragraphs>
     <paragraph id="1">
       <sentence id="1">
+	      text id = 2
       </sentence>
     </paragraph>
   </paragraphs>

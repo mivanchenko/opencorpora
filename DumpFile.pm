@@ -80,10 +80,19 @@ sub next {
 	my ($self) = @_;
 	my $next = $self->iterator->next;
 
-	# add a method 'id' to 'next element'
-	*XML::TreePuller::Element::id = sub {
-		return $next->attribute( 'id' );
-	};
+	unless ( $next ) {
+		return;
+	}
+
+	{
+		# subs must be redefined
+		no warnings;
+
+		# add a method 'id' to 'next element'
+		*XML::TreePuller::Element::id = sub {
+			return $next->attribute( 'id' );
+		};
+	}
 
 	return $next;
 }

@@ -14,7 +14,27 @@ my $file_name =
 my $dump_file = DumpFile->new( file_name => $file_name );
 
 #my $text = $dump_file->texts->next;
-#debug( $text->id );
+
+while ( defined( my $text = $dump_file->texts->next ) ) {
+	print 'Id: ',   $text->attribute( 'id' ), "\n";
+	print 'Id: ',   $text->id, "\n";
+	print 'Name: ', $text->name, "\n";
+	print 'Text: ', $text->text, "\n", "\n";
+}
+
+#while ( defined( my $paragraph = $dump_file->paragraphs->next ) ) {
+#	print 'Id: ',   $paragraph->attribute( 'id' ), "\n";
+#	print 'Id: ',   $paragraph->id, "\n";
+#	print 'Name: ', $paragraph->name, "\n";
+#	print 'Text: ', $paragraph->text, "\n", "\n";
+#}
+#
+#while ( defined( my $sentence = $dump_file->sentences->next ) ) {
+#	print 'Id: ',   $sentence->attribute( 'id' ), "\n";
+#	print 'Id: ',   $sentence->id, "\n";
+#	print 'Name: ', $sentence->name, "\n";
+#	print 'Text: ', $sentence->text, "\n", "\n";
+#}
 
 #while ( defined( my $text = $dump_file->texts->next ) ) {
 #	print 'Id: ',   $text->attribute( 'id' ), "\n";
@@ -39,27 +59,6 @@ my $dump_file = DumpFile->new( file_name => $file_name );
 #			print 'Text: ', $sentence->text, "\n", "\n";
 #		}
 #	}
-#}
-
-#while ( defined( my $text = $dump_file->texts->next ) ) {
-#	print 'Id: ',   $text->attribute( 'id' ), "\n";
-#	print 'Id: ',   $text->id, "\n";
-#	print 'Name: ', $text->name, "\n";
-#	print 'Text: ', $text->text, "\n", "\n";
-#}
-#
-#while ( defined( my $paragraph = $dump_file->paragraphs->next ) ) {
-#	print 'Id: ',   $paragraph->attribute( 'id' ), "\n";
-#	print 'Id: ',   $paragraph->id, "\n";
-#	print 'Name: ', $paragraph->name, "\n";
-#	print 'Text: ', $paragraph->text, "\n", "\n";
-#}
-#
-#while ( defined( my $sentence = $dump_file->sentences->next ) ) {
-#	print 'Id: ',   $sentence->attribute( 'id' ), "\n";
-#	print 'Id: ',   $sentence->id, "\n";
-#	print 'Name: ', $sentence->name, "\n";
-#	print 'Text: ', $sentence->text, "\n", "\n";
 #}
 
 sub debug { print Dumper( shift ) }
