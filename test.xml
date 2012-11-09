@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <annotation version="0.11" revision="2367458">
 <text id="1" parent="0" name="&quot;Частный корреспондент&quot;">
-  <tags>
+  <tags lang="eu">
     <tag>url:http://www.chaskor.ru</tag>
     <tag>Тип:Газета</tag>
   </tags>

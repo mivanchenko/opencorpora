@@ -4,23 +4,47 @@ use strict;
 use warnings;
 
 use Data::Dumper;
+$Data::Dumper::Terse = 1;
+
 use DumpFile;
 
 my $file_name =
 	'test.xml'
+#	'test2.xml'
 #	'annot.opcorpora.xml'
 ;
 
 my $dump_file = DumpFile->new( file_name => $file_name );
 
-#my $text = $dump_file->texts->next;
-
 while ( defined( my $text = $dump_file->texts->next ) ) {
-	print 'Id: ',   $text->attribute( 'id' ), "\n";
-	print 'Id: ',   $text->id, "\n";
-	print 'Name: ', $text->name, "\n";
-	print 'Text: ', $text->text, "\n", "\n";
+	my $text_struct = $text->struct;
+# OR:
+#while ( defined( my $text_struct = $dump_file->texts->next->struct ) ) {
+	print 'Id:           ' . $text_struct->{'id'}           . "\n";
+	print 'Name:         ' . $text_struct->{'name'}         . "\n";
+	print 'Text:         ' . $text_struct->{'text'}         . "\n";
+	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
+
+	print(
+		'Text of the second <tag> of the first <tags>: ',
+		$text_struct->{'tags'}[0]{'tag'}[1]{'text'},
+		"\n",
+	);
+
+	last;
 }
+
+
+## speed test
+#use Time::HiRes qw( gettimeofday tv_interval );
+#my $t0 = [gettimeofday];
+#while ( defined( my $text = $dump_file->texts->next ) ) {
+#	print $text->attribute( 'id' ) . ' ';
+#}
+#print "\n";
+#print tv_interval( $t0 ) . " sec\n";
+
+
 
 #while ( defined( my $paragraph = $dump_file->paragraphs->next ) ) {
 #	print 'Id: ',   $paragraph->attribute( 'id' ), "\n";

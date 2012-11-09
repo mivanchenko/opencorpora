@@ -3,6 +3,7 @@ package DumpFile;
 use strict;
 use warnings;
 
+use DumpFile::Struct;
 use XML::LibXML::Reader;
 use XML::TreePuller;
 
@@ -84,13 +85,20 @@ sub next {
 		return;
 	}
 
+	# add methods to 'next element'
 	{
 		# subs must be redefined
 		no warnings;
 
-		# add a method 'id' to 'next element'
+		# method 'id'
 		*XML::TreePuller::Element::id = sub {
 			return $next->attribute( 'id' );
+		};
+
+		# method 'struct'
+		# returns hash structure for a given element
+		*XML::TreePuller::Element::struct = sub {
+			return DumpFile::Struct->new( 'element' => $next )->struct;
 		};
 	}
 
@@ -130,6 +138,26 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
  	print 'Id: ',   $sentence->id, "\n";
  	print 'Name: ', $sentence->name, "\n";
  	print 'Text: ', $sentence->text, "\n", "\n";
+ }
+
+ ###
+
+ while ( defined( my $text = $dump_file->texts->next ) ) {
+ 	my $text_struct = $text->struct;
+ # OR:
+ # while ( defined( my $text_struct = $dump_file->texts->next->struct ) ) {
+ 	print 'Id:           ' . $text_struct->{'id'}           . "\n";
+ 	print 'Name:         ' . $text_struct->{'name'}         . "\n";
+ 	print 'Text:         ' . $text_struct->{'text'}         . "\n";
+ 	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
+
+ 	print(
+ 		'Text of the second <tag> of the first <tags>: ',
+ 		$text_struct->{'tags'}[0]{'tag'}[1]{'text'},
+ 		"\n",
+ 	);
+
+ 	last;
  }
 
  ###
