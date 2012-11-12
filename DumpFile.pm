@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use DumpFile::Struct;
-use XML::LibXML::Reader;
 use XML::TreePuller;
 
 $| = 1;  # I/O buffer off

@@ -1,10 +1,9 @@
-package Convertor;
+package Converter;
 
 use strict;
 use warnings;
 
 use Carp;
-use Data::Dumper;
 use DBI;
 use XML::LibXML::Reader;
 
@@ -14,11 +13,11 @@ binmode( STDOUT, ':encoding(utf8)' );
 
 use Object::InsideOut;
 
-my @file_name :Field :Acc( file_name )
-	:Arg( 'Name' => 'file_name', 'Default' => 'test.xml' );
+my @file_name :Arg( 'Name' => 'file_name', 'Default' => 'test.xml' )
+              :Field :Acc( file_name );
 
-my @db_name   :Field :Acc( db_name )
-	:Arg( 'Name' => 'db_name',   'Default' => 'corpus.sqlite' );
+my @db_name :Arg( 'Name' => 'db_name', 'Default' => 'corpus.sqlite' )
+            :Field :Acc( db_name );
 
 
 sub xml2sqlite {
