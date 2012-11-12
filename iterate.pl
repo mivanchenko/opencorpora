@@ -16,21 +16,29 @@ my $file_name =
 
 my $dump_file = DumpFile->new( file_name => $file_name );
 
-while ( defined( my $text = $dump_file->texts->next ) ) {
-	my $text_struct = $text->struct;
-# OR:
-#while ( defined( my $text_struct = $dump_file->texts->next->struct ) ) {
-	print 'Id:           ' . $text_struct->{'id'}           . "\n";
-	print 'Name:         ' . $text_struct->{'name'}         . "\n";
-	print 'Text:         ' . $text_struct->{'text'}         . "\n";
-	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
+#while ( defined( my $text = $dump_file->texts->next ) ) {
+#	my $text_struct = $text->struct;
+#	print 'Id:           ' . $text_struct->{'id'}           . "\n";
+#	print 'Name:         ' . $text_struct->{'name'}         . "\n";
+#	print 'Text:         ' . $text_struct->{'text'}         . "\n";
+#	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
+#
+#	print(
+#		'Text of the second <tag> of the first <tags>: ',
+#		$text_struct->{'tags'}[0]{'tag'}[1]{'text'},
+#		"\n",
+#	);
+#
+#	last;
+#}
 
-	print(
-		'Text of the second <tag> of the first <tags>: ',
-		$text_struct->{'tags'}[0]{'tag'}[1]{'text'},
-		"\n",
-	);
-
+while ( defined( my $p = $dump_file->paragraphs->next ) ) {
+	my $p_struct = $p->struct;
+	print 'Id:           ' . $p_struct->{'id'}           . "\n";
+	print 'Name:         ' . $p_struct->{'name'}         . "\n";
+	print 'Text:         ' . $p_struct->{'text'}         . "\n";
+	print 'Element name: ' . $p_struct->{'element_name'} . "\n";
+	print $p_struct->{'sentence'}[1]{'text'} . "\n";
 	last;
 }
 
@@ -39,7 +47,12 @@ while ( defined( my $text = $dump_file->texts->next ) ) {
 #use Time::HiRes qw( gettimeofday tv_interval );
 #my $t0 = [gettimeofday];
 #while ( defined( my $text = $dump_file->texts->next ) ) {
-#	print $text->attribute( 'id' ) . ' ';
+#	my $text_struct = $text->struct;
+##	print 'Id:           ' . $text_struct->{'id'}           . "\n";
+##	print 'Name:         ' . $text_struct->{'name'}         . "\n";
+##	print 'Text:         ' . $text_struct->{'text'}         . "\n";
+##	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
+#	print '.';
 #}
 #print "\n";
 #print tv_interval( $t0 ) . " sec\n";

@@ -144,8 +144,6 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
 
  while ( defined( my $text = $dump_file->texts->next ) ) {
  	my $text_struct = $text->struct;
- # OR:
- # while ( defined( my $text_struct = $dump_file->texts->next->struct ) ) {
  	print 'Id:           ' . $text_struct->{'id'}           . "\n";
  	print 'Name:         ' . $text_struct->{'name'}         . "\n";
  	print 'Text:         ' . $text_struct->{'text'}         . "\n";

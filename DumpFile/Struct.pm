@@ -22,29 +22,13 @@ sub struct {
 sub _recursive_struct {
 	my ($self, $root) = @_;
 
-	my $struct;
-
-	###
 	# get properties of current element
-
-	# merge attributes hash into struct
-	my $attrs = $root->attribute;
-	foreach my $k ( keys %{$attrs} ) {
-		$struct->{$k} = $attrs->{$k};
-	}
-
+	my $struct = $root->attribute;
 	$struct->{'text'} = $root->text;
 	$struct->{'element_name'} = $root->name;
 
-
-	###
 	# get properties of inner elements
-
-	my @elems = $root->get_elements();
-
-	# names of inner elements are keys of struct
-	foreach my $elem ( @elems ) {
-		# !!! recursion
+	foreach my $elem ( $root->get_elements ) {
 		push @{ $struct->{ $elem->name } }, $self->_recursive_struct( $elem );
 	}
 	
