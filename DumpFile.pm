@@ -148,11 +148,9 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
  	print 'Text:         ' . $text_struct->{'text'}         . "\n";
  	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
 
- 	print(
- 		'Text of the second <tag> of the first <tags>: ',
- 		$text_struct->{'tags'}[0]{'tag'}[1]{'text'},
- 		"\n",
- 	);
+ 	# <tags> <tag>url:opencorpora.org</tag> <tag>url:opencorpora.org - 2</tag> </tags>
+ 	# In the sample above tags content can be accessed like this:
+ 	print $text_struct->{'tags'}->{'url'}[0];
 
  	last;
  }

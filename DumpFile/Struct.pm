@@ -29,7 +29,27 @@ sub _recursive_struct {
 
 	# get properties of inner elements
 	foreach my $elem ( $root->get_elements ) {
+		if ( $elem->name eq 'tags' ) {
+			$struct->{'tags'} = $self->_get_tags( $elem );
+			next;
+		}
+
 		push @{ $struct->{ $elem->name } }, $self->_recursive_struct( $elem );
+	}
+	
+	return $struct;
+}
+
+sub _get_tags {
+	my ($self, $root) = @_;
+
+	my $struct;
+
+	# get tags content as name:value pairs
+	foreach my $elem ( $root->get_elements ) {
+		my ($tag_name, $tag_value) = split /:/, $elem->text, 2;
+
+		push @{ $struct->{ $tag_name } }, $tag_value;
 	}
 	
 	return $struct;
