@@ -16,20 +16,15 @@ my $file_name =
 
 my $dump_file = DumpFile->new( file_name => $file_name );
 
+
+#$dump_file->preprocess_tags();
+
+
 while ( defined( my $text = $dump_file->texts->next ) ) {
 	my $text_struct = $text->struct;
-
-#	print Dumper $text_struct->{'tags'}[0];
-#	print Dumper $text_struct;
-	print Dumper $text_struct->{'tags'}->{'url'}[1];
-
-#	print 'Id:           ' . $text_struct->{'id'}           . "\n";
-#	print 'Name:         ' . $text_struct->{'name'}         . "\n";
-#	print 'Text:         ' . $text_struct->{'text'}         . "\n";
-#	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
-
-	last;
+	print Dumper $text_struct;
 }
+
 
 #while ( defined( my $p = $dump_file->paragraphs->next ) ) {
 #	my $p_struct = $p->struct;

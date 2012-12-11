@@ -3,6 +3,8 @@ package DumpFile;
 use strict;
 use warnings;
 
+use Data::Dumper;
+
 use DumpFile::Struct;
 use XML::TreePuller;
 
@@ -77,7 +79,7 @@ sub _set_iterator {
 }
 
 sub next {
-	my ($self) = @_;
+	my ($self, $context) = @_;
 	my $next = $self->iterator->next;
 
 	unless ( $next ) {
@@ -97,11 +99,20 @@ sub next {
 		# method 'struct'
 		# returns hash structure for a given element
 		*XML::TreePuller::Element::struct = sub {
-			return DumpFile::Struct->new( 'element' => $next )->struct;
+			return DumpFile::Struct->new( 'element' => $next )->struct( $context );
 		};
 	}
 
 	return $next;
+}
+
+sub preprocess_tags {
+	my ($self) = @_;
+
+	while ( defined( my $text = $self->texts->next( 'tags' ) ) ) {
+		my $text_struct = $text->struct;
+		print Dumper $text_struct;
+	}
 }
 
 1;
