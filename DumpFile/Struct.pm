@@ -49,7 +49,7 @@ sub _get_tags {
 	foreach my $elem ( $root->get_elements ) {
 		my ($tag_name, $tag_value) = split /:/, $elem->text, 2;
 
-		push @{ $struct->{ $tag_name } }, $tag_value;
+		$struct->{ $tag_name }->{ $tag_value } = 1;
 	}
 	
 	return $struct;
@@ -66,11 +66,11 @@ sub _recursive_struct {
 	# get properties of inner elements
 	foreach my $elem ( $root->get_elements ) {
 
-		unless ( $self->{'tags_preprocessed'} ) {
-			if ( $elem->name eq 'tags' ) {
+		if ( $elem->name eq 'tags' ) {
+			unless ( $self->{'tags_preprocessed'} ) {
 				$struct->{'tags'} = $self->_get_tags( $elem );
-				next;
 			}
+			next;
 		}
 
 		push @{ $struct->{ $elem->name } }, $self->_recursive_struct( $elem );
@@ -80,13 +80,17 @@ sub _recursive_struct {
 		if ( $self->{'tags_preprocessed'} ) {
 
 			# merge content by 'id' with content by 'parent_id'
-			my $tags_by_id = $self->{'all_tags'}->{ $struct->{'id'} };
-			my $tags_by_parent_id = $self->{'all_tags'}->{ $struct->{'parent'} };
+			my $tags_by_id = $self->{'all_tags'}{ $struct->{'id'} };
+			my $tags_by_parent_id = $self->{'all_tags'}{ $struct->{'parent'} };
 
-			$struct->{'tags'} = $tags_by_id;
+			foreach my $k ( keys %{$tags_by_id} ) {
+				$struct->{'tags'}{ $k } = [ keys %{ $tags_by_id->{ $k } } ];
+			}
 
 			while ( my ($k, $v) = each %{$tags_by_parent_id} ) {
-				unshift @{ $struct->{'tags'}->{ $k } }, @{ $v };
+				unless ( exists $tags_by_id->{ $k }{ $v } ) {
+					push @{ $struct->{'tags'}{ $k } }, keys %{$v};
+				}
 			}
 		}
 	}
