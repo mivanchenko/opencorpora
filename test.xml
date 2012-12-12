@@ -14,4 +14,13 @@
     <tag>Тип:Газета - 2</tag>
   </tags>
 </text>
+<text id="3" parent="2" name="Школа - 2">
+  <tags>
+    <tag>url:http://www.chaskor.ru - 5</tag>
+    <tag>url:http://www.chaskor.ru - 6</tag>
+    <tag>url:http://www.chaskor.ru - 1</tag>
+    <tag>Тип:Газета - 3</tag>
+    <tag>Тип:Газета - 1</tag>
+  </tags>
+</text>
 </annotation>

@@ -20,6 +20,8 @@ our %XPATHS = (
 # { text_id } - { tag_name } - [ tag_values ]
 my %TAGS;
 
+my $TAGS_PREPROCESSED = 0;
+
 use Object::InsideOut;
 
 my @file_name :Arg( 'Name' => 'file_name', 'Default' => 'test.xml' )
@@ -35,12 +37,16 @@ my @iterator :Field :Acc( iterator );
 
 sub init :Init {
 	my ($self, $args) = @_;
+	$self->_do_init();
+}
+
+sub _do_init {
+	my ($self) = @_;
 
 	my $iterator = XML::TreePuller->new( location => $self->file_name );
 	$iterator->iterate_at( $self->iterant_xpath, $self->mode );
 	$self->iterator( $iterator );
 }
-
 
 sub texts {
 	my ($self) = @_;
@@ -101,7 +107,12 @@ sub next {
 		# method 'struct'
 		# returns hash structure for a given element
 		*XML::TreePuller::Element::struct = sub {
-			return DumpFile::Struct->new( 'element' => $next )->struct( $context );
+			return
+				DumpFile::Struct->new(
+					'element'  => $next,
+					'all_tags' => \%TAGS,
+					'tags_preprocessed' => $TAGS_PREPROCESSED,
+				)->struct( $context );
 		};
 	}
 
@@ -119,6 +130,11 @@ sub preprocess_tags {
 		}
 	}
 
+	# reset reader cursor
+	$self->_do_init();
+
+	$TAGS_PREPROCESSED = 1;
+
 	return 1;
 }
 
@@ -131,6 +147,8 @@ __END__
 DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|http://opencorpora.org/?page=downloads>.
 
 =head1 SYNOPSIS
+
+=head2 General
 
  use DumpFile;
 
@@ -157,23 +175,36 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
  	print 'Text: ', $sentence->text, "\n", "\n";
  }
 
- ###
+=head2 Accessing tags
+
+ use DumpFile;
+
+ my $dump_file = DumpFile->new( file_name => 'annot.opcorpora.xml' );
 
  while ( defined( my $text = $dump_file->texts->next ) ) {
  	my $text_struct = $text->struct;
- 	print 'Id:           ' . $text_struct->{'id'}           . "\n";
- 	print 'Name:         ' . $text_struct->{'name'}         . "\n";
- 	print 'Text:         ' . $text_struct->{'text'}         . "\n";
- 	print 'Element name: ' . $text_struct->{'element_name'} . "\n";
 
- 	# <tags> <tag>url:opencorpora.org</tag> <tag>url:opencorpora.org - 2</tag> </tags>
- 	# In the sample above tags content can be accessed like this:
- 	print $text_struct->{'tags'}->{'url'}[0];
-
- 	last;
+ 	# <tags>
+ 	#   <tag>url:opencorpora.org</tag>
+ 	#   <tag>url:opencorpora.org - 2</tag>
+ 	# </tags>
+ 	print $text_struct->{'tags'}->{'url'}[0];  # should print 'opencorpora.org'
  }
 
- ###
+=head2 Tags preprocessing
+
+ use DumpFile;
+
+ my $dump_file = DumpFile->new( file_name => 'annot.opcorpora.xml' );
+
+ $dump_file->preprocess_tags();
+
+ while ( defined( my $text = $dump_file->texts->next ) ) {
+ 	my $text_struct = $text->struct;
+ 	print Dumper $text_struct;
+ }
+
+=head2 Old school
 
  while ( defined( my $text = $dump_file->texts->next ) ) {
  	print 'Id: ',   $text->attribute( 'id' ), "\n";
@@ -221,6 +252,10 @@ Returns C<$self> to allow chaining: C<< $self->sentences->next >>.
 
 Returns next L<XML::TreePuller::Element|http://search.cpan.org/~triddle/XML-TreePuller-0.1.2/lib/XML/TreePuller.pm#XML::TreePuller::Element> with added convenience method 'id', so you can get 'id' attribute with:
 C<< $next_element->id >> instead of C<< $next_element->attribute('id') >>.
+
+=head2 preprocess_tags
+
+Reads entire XML collecting all the tags from texts. This collection is later used for tags inheritance, where the child tag inherits all the tags from all its parents.
 
 =head1 PERFORMANCE
 

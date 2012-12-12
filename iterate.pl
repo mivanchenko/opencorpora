@@ -16,14 +16,12 @@ my $file_name =
 
 my $dump_file = DumpFile->new( file_name => $file_name );
 
-
 $dump_file->preprocess_tags();
 
-
-#while ( defined( my $text = $dump_file->texts->next ) ) {
-#	my $text_struct = $text->struct;
-#	print Dumper $text_struct;
-#}
+while ( defined( my $text = $dump_file->texts->next ) ) {
+	my $text_struct = $text->struct;
+	print Dumper $text_struct;
+}
 
 
 #while ( defined( my $p = $dump_file->paragraphs->next ) ) {

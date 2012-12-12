@@ -40,7 +40,7 @@ sub _tags_struct {
 	return $struct;
 }
 
-# get <tag>s content as name:value pairs
+# get <tag>s content as hash of name:value pairs
 sub _get_tags {
 	my ($self, $root) = @_;
 
@@ -65,12 +65,30 @@ sub _recursive_struct {
 
 	# get properties of inner elements
 	foreach my $elem ( $root->get_elements ) {
-		if ( $elem->name eq 'tags' ) {
-			$struct->{'tags'} = $self->_get_tags( $elem );
-			next;
+
+		unless ( $self->{'tags_preprocessed'} ) {
+			if ( $elem->name eq 'tags' ) {
+				$struct->{'tags'} = $self->_get_tags( $elem );
+				next;
+			}
 		}
 
 		push @{ $struct->{ $elem->name } }, $self->_recursive_struct( $elem );
+	}
+
+	if ( $struct->{'element_name'} eq 'text' ) {
+		if ( $self->{'tags_preprocessed'} ) {
+
+			# merge content by 'id' with content by 'parent_id'
+			my $tags_by_id = $self->{'all_tags'}->{ $struct->{'id'} };
+			my $tags_by_parent_id = $self->{'all_tags'}->{ $struct->{'parent'} };
+
+			$struct->{'tags'} = $tags_by_id;
+
+			while ( my ($k, $v) = each %{$tags_by_parent_id} ) {
+				unshift @{ $struct->{'tags'}->{ $k } }, @{ $v };
+			}
+		}
 	}
 	
 	return $struct;
