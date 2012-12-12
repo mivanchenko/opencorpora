@@ -17,7 +17,7 @@ sub struct {
 
 	if ( $context && $context eq 'tags' ) {
 		# hash of text properies: id, parent, tags
-		$struct = $self->_recursive_tags_struct( $self->{'element'} );
+		$struct = $self->_tags_struct( $self->{'element'} );
 	}
 	else {
 		# hash of properies: id, name, text, etc. etc.
@@ -27,29 +27,25 @@ sub struct {
 	return $struct;
 }
 
-sub _recursive_tags_struct {
+# Returns: { text_id } - { tag_name } - [ tag_values ]
+sub _tags_struct {
 	my ($self, $root) = @_;
-
-	# get properties of <text>
-	my $struct = {
-		'parent' => $root->attribute( 'parent' ),
-		'id'     => $root->attribute( 'id' ),
-	};
+	my $struct;
 
 	# get properties of <tags>
 	foreach my $elem ( $root->get_elements ) {
-		$struct->{'tags'} = $self->_get_tags( $elem );
+		$struct->{ $root->attribute( 'id' ) } = $self->_get_tags( $elem );
 	}
 	
 	return $struct;
 }
 
+# get <tag>s content as name:value pairs
 sub _get_tags {
 	my ($self, $root) = @_;
 
 	my $struct;
 
-	# get tags content as name:value pairs
 	foreach my $elem ( $root->get_elements ) {
 		my ($tag_name, $tag_value) = split /:/, $elem->text, 2;
 

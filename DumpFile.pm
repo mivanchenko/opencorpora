@@ -17,6 +17,8 @@ our %XPATHS = (
 	'sentence'  => '/annotation/text/paragraphs/paragraph/sentence',
 );
 
+# { text_id } - { tag_name } - [ tag_values ]
+my %TAGS;
 
 use Object::InsideOut;
 
@@ -111,8 +113,13 @@ sub preprocess_tags {
 
 	while ( defined( my $text = $self->texts->next( 'tags' ) ) ) {
 		my $text_struct = $text->struct;
-		print Dumper $text_struct;
+
+		while ( my ($k, $v) = each %{$text_struct} ) {
+			$TAGS{ $k } = $v;
+		}
 	}
+
+	return 1;
 }
 
 1;
