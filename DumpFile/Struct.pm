@@ -86,7 +86,13 @@ sub _recursive_struct {
 			$struct->{'tags'} = $tags_by_id;
 
 			while ( my ($k, $v) = each %{$tags_by_parent_id} ) {
-				unshift @{ $struct->{'tags'}->{ $k } }, @{ $v };
+				my %IN_DESCENDANTS = map { $_ => 1 } @{ $struct->{'tags'}{$k} };
+
+				foreach my $parent_value ( reverse @{$v} ) {
+					unless ( $IN_DESCENDANTS{ $parent_value } ) {
+						unshift @{ $struct->{'tags'}->{$k} }, $parent_value;
+					}
+				}
 			}
 		}
 	}
