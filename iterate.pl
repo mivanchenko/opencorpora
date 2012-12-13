@@ -8,6 +8,8 @@ $Data::Dumper::Terse = 1;
 
 use DumpFile;
 
+#print $DumpFile::VERSION . "\n";
+
 my $file_name =
 	'test.xml'
 #	'test2.xml'
