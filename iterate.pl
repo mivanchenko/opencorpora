@@ -6,7 +6,7 @@ use warnings;
 use Data::Dumper;
 $Data::Dumper::Terse = 1;
 
-use DumpFile;
+use DumpFile '1.0';
 
 my $file_name =
 	'test.xml'

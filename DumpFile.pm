@@ -3,10 +3,10 @@ package DumpFile;
 use strict;
 use warnings;
 
-use Data::Dumper;
-
 use DumpFile::Struct;
 use XML::TreePuller;
+
+use version; our $VERSION = qv('1.0');
 
 $| = 1;  # I/O buffer off
 binmode( STDOUT, ':encoding(utf8)' );
