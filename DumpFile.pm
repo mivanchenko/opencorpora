@@ -188,7 +188,7 @@ DumpFile - Iterator for L<OpenCorpora|http://opencorpora.org>'s L<XML dump file|
  	#   <tag>url:opencorpora.org</tag>
  	#   <tag>url:opencorpora.org - 2</tag>
  	# </tags>
- 	print $text_struct->{'tags'}->{'url'}[0];  # should print 'opencorpora.org'
+ 	print $text_struct->{'tags'}{'url'}[0];  # should print 'opencorpora.org'
  }
 
 =head2 Tags preprocessing

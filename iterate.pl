@@ -9,19 +9,32 @@ $Data::Dumper::Terse = 1;
 use DumpFile '1.0';
 
 my $file_name =
-	'test.xml'
+	't/00load.test.xml',
+#	'test.xml'
 #	'test2.xml'
 #	'annot.opcorpora.xml'
 ;
 
 my $dump_file = DumpFile->new( file_name => $file_name );
 
-$dump_file->preprocess_tags();
+use Time::HiRes qw( gettimeofday tv_interval );
+my $t0 = [gettimeofday];
+print 'Preprocessing';
+
+#$dump_file->preprocess_tags();
+
+print " done\n";
+print tv_interval( $t0 ) . " sec\n";
+print 'Processing';
 
 while ( defined( my $text = $dump_file->texts->next ) ) {
 	my $text_struct = $text->struct;
 	print Dumper $text_struct;
+	print '.';
 }
+
+print " done\n";
+print tv_interval( $t0 ) . " sec\n";
 
 
 #while ( defined( my $p = $dump_file->paragraphs->next ) ) {
