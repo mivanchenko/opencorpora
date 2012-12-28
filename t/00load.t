@@ -5,9 +5,7 @@ use Test::More tests => 2;
 
 BEGIN { use_ok( 'DumpFile', 1.0 ) }
 
-my $file_name = 't/00load.test.xml';
-
-my $dump_file = DumpFile->new( file_name => $file_name );
+my $dump_file = DumpFile->new( file_name => 't/00load.test.xml' );
 
 my $texts_found;
 

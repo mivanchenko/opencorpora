@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<annotation version="0.11" revision="2367458">
+<text id="1" parent="0" name="А - Другое">
+  <tags lang="eu">
+    <tag>url:http://www.a.com</tag>
+    <tag>Тип:Урл</tag>
+  </tags>
+</text>
+<text id="3" parent="0" name="Б - Шутки">
+  <tags lang="eu">
+    <tag>url:http://www.b.com</tag>
+    <tag>Тип:Урл</tag>
+  </tags>
+</text>
+<text id="2" parent="3" name="А1 - Вложенный">
+  <tags lang="eu">
+    <tag>url:http://www.a1.com</tag>
+    <tag>Тип:Урл</tag>
+  </tags>
+</text>
+</annotation>
