@@ -97,7 +97,7 @@ sub next {
 	# add methods to 'next element'
 	{
 		# subs must be redefined
-		no warnings;
+		no warnings 'redefine';
 
 		# method 'id'
 		*XML::TreePuller::Element::id = sub {
