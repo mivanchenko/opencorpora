@@ -277,4 +277,7 @@ C<< print grep$_=pack((chr hex oct 77),hex),unpack join(undef,((chr hex oct 51).
 
 =head1 LICENSE
 
-This program is free software, you can redistribute it under the same terms as Perl itself.
+This module is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.16.2 or,
+at your option, any later version of Perl 5 you may have available.
+
