@@ -1,4 +1,2 @@
 opencorpora
 ===========
-
-opencorpora.org
